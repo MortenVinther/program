@@ -7,7 +7,12 @@
 *.obj
 *.htp
 *.log
+*.out
+*.cov
+*.cor
+*.hes
 sms_2*.*
 op_2*.*
 *.Rproj
+*/*
 
