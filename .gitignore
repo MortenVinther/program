@@ -1,0 +1,13 @@
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+*.exe
+*.cpp
+*.obj
+*.htp
+*.log
+sms_2*.*
+op_2*.*
+*.Rproj
+
