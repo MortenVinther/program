@@ -1,18 +1,4 @@
-.Rproj.user
-.Rhistory
-.RData
-.Ruserdata
-*.exe
-*.cpp
-*.obj
-*.htp
-*.log
-*.out
-*.cov
-*.cor
-*.hes
-sms_2*.*
-op_2*.*
-*.Rproj
-*/*
-
+# Ignore everything
+*
+# Allow sms.tpl
+!sms.tpl
