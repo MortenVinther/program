@@ -11475,7 +11475,8 @@ FUNCTION void print_M1M2sum()
       mm <<endl;
      }
    }
- } 
+ }
+ mm<<"-999 # Checksum"<<endl;
  mm.close();
 
 FUNCTION void print_season_overlap()
