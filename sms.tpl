@@ -8,9 +8,9 @@
 //  Biomass of other food in ton (more correctly, the same unit as the 
 //      product of fish numbers and consumption)
 
- // €€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€
- // €€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€
- 
+ //  ###################################################################################################################################
+ //  ###################################################################################################################################
+
 GLOBALS_SECTION
  #include <admodel.h>
  #include <time.h>
@@ -45,12 +45,12 @@ GLOBALS_SECTION
                                 "   penalty", 
                                 "       Sum"};
 
- // €€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€
- // €€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€
-                             
+ //  ###################################################################################################################################
+ //  ###################################################################################################################################
+ 
 DATA_SECTION
 
- !! cout<<"SMS version 2023-11-29, using ADMB version 13.1"<<endl;
+ !! cout<<"SMS version 2024-03-06, using ADMB version 12.2"<<endl;
 
  
 
@@ -442,10 +442,10 @@ DATA_SECTION
  init_ivector n_catch_sep_year_group(first_VPA,nsp) //number of year groups with different age separable parameters
  !! if (test_output==1) cout<<"n.catch.sep.year.group: "<<endl<<n_catch_sep_year_group<<endl;
   
-
  3darray catch_s2_used(first_VPA,nsp,1,seasonal_combined_catch_s2,1,n_catch_s2_group)
  !! for (s=first_VPA;s<=nsp;s++) for (q=fq;q<=seasonal_combined_catch_s2(s);q++) for (g=1;g<=n_catch_s2_group(s);g++) catch_s2_used(s,q,g)=0;
 
+ //!! cout<<"n_catch_s2_group: "<<n_catch_s2_group<< "  seasonal_combined_catch_s2: "<<seasonal_combined_catch_s2<<endl;
  init_imatrix catch_sep_year(first_VPA,nsp,1,n_catch_sep_year_group)  //first year in a group with different age separable parameters
  !! if (test_output==1) cout <<"catch.sep.year: "<<endl<<catch_sep_year<<endl;
  !! for (s=first_VPA;s<=nsp;s++) if (catch_sep_year(s,1) != fyModel) {
@@ -1996,7 +1996,7 @@ DATA_SECTION
  !! change_input("weca.in");
  int lastyear;
  !! if (do_short_term_forecast>0) lastyear=lyData+1; else lastyear=lyData;
- init_4darray weca_input(first_VPA,nsp,fyData,lastyear,fq,lq,fa,max_a) 
+  init_4darray weca_input(first_VPA,nsp,fyData,lastyear,fq,lq,fa,max_a)
  init_number check6;
  !! checkSum(check6,"weca.in"); 
 
@@ -2063,7 +2063,8 @@ DATA_SECTION
  //********************************************************************************************* 
  // Mean weight in the sea
  !! change_input("west.in");
- !! if (do_short_term_forecast>0 || any_do_effort==1) lastyear=lyData+2; else lastyear=lyData;
+ !! if (do_short_term_forecast>0 ) lastyear=lyData+2; else lastyear=lyData;
+ // !! if (do_short_term_forecast>0 || any_do_effort==1) lastyear=lyData+2; else lastyear=lyData;
  init_4darray west_input(1,nsp,fyData,lastyear,fq,lq,fa,max_a) 
  !! if (test_output==2) cout<<"Weight in the stock from file west.in:"<<endl<<west_input<<endl;
  init_number check9;
@@ -2109,7 +2110,8 @@ DATA_SECTION
  // Proportion mature
  !! change_input("propmat.in");
 
- !! if (do_short_term_forecast>0 || any_do_effort==1) lastyear=lyData+2; else lastyear=lyData;
+ //!! if (do_short_term_forecast>0 || any_do_effort==1) lastyear=lyData+2; else lastyear=lyData;
+ !! if (do_short_term_forecast>0 ) lastyear=lyData+2; else lastyear=lyData;
  init_4darray propmat_input(first_VPA,nsp,fyData,lastyear,fq,lq,fa,max_a) 
  init_number check10;
  !! checkSum(check10,"propmat.in"); 
@@ -3210,10 +3212,9 @@ DATA_SECTION
  !! if (test_output>=1) cout<<endl<< "DATA_SECTION completed"<<endl;
 
 
-
- // €€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€
- // €€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€
-
+ //  ###################################################################################################################################
+ //  ###################################################################################################################################
+ 
 INITIALIZATION_SECTION
 
   F_y_ini 1.0
@@ -3230,10 +3231,9 @@ INITIALIZATION_SECTION
   qq_power_ini 1.0
   init_s1 10.0
   //init_L50 100
-
- // €€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€
- // €€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€
-
+  
+ //  ###################################################################################################################################
+ //  ###################################################################################################################################
 
 PARAMETER_SECTION
   
@@ -3275,19 +3275,24 @@ PARAMETER_SECTION
  !! i=first_VPA;
  //!! for (s=first_VPA;s<=nsp;s++) if (do_effort(s)==0) {F_y_species_index(s)=i; i++;}
 
- 
  // Year effect in Fishing mortality. F_y(s,fyModel)=1 is constant
 
-  !! imatrix F_y_index(first_VPA,nsp_Fy,fyModel,lly);
- 
+
+ // !! cout<<"first_VPA:"<<first_VPA<<" nsp_Fy:"<<nsp_Fy<<" fyModel:"<<fyModel<<" lly;"<<lly<<"  do_effort:"<<do_effort<<endl;
+ !! imatrix F_y_index(first_VPA,nsp_Fy,fyModel,lly);
+ //!! cout<<"n_catch_sep_year_group:"<<n_catch_sep_year_group<<"  catch_sep_year:" <<  catch_sep_year<<endl;
+ // !! cout<<"zero_catch_y_season: "<<zero_catch_y_season<<endl;
+ // !! if (nsp_Fy>0 ) cout<<"F_y_index:"<<F_y_index<<endl;    else cout<<"nsp_Fy == 0"<<endl;
  !! k=0;
- !! for (s=first_VPA;s<=nsp;s++) for (y=fyModel;y<=lly(s);y++) {
+ !! if (nsp_Fy > 0) for (s=first_VPA;s<=nsp;s++) for (y=fyModel;y<=lly(s);y++) {
  !!    f=1;  // found year ?
  !!    for (i=1;i<=n_catch_sep_year_group(s);i++) if (catch_sep_year(s,i)==y) f=0;
  !!    if (sum(zero_catch_y_season(s,y))==0) f=-1;
  !!    if (f==1) { k++; F_y_index(s,y)=k; }
  !!    F_y_ini_used(s,y)=f;
  !! }
+
+ // !! cout<<"F_y_ini_used: k: " <<k<<" do_effort:" <<do_effort<<" F_y_ini_used: "<<F_y_ini_used<<endl;
 
  init_bounded_vector F_y_ini(1,k,0.001,10.0,phase_F_y_ini)
  !! if (phase_F_y_ini>0 ) {
@@ -3370,7 +3375,7 @@ PARAMETER_SECTION
  !!   }
  !!  }
 
- !! cout<<"n_log_F_a_ini:"<<n_log_F_a_ini<<endl;
+ //!! cout<<"n_log_F_a_ini:"<<n_log_F_a_ini<<endl;
  init_vector log_F_a_ini(1,n_log_F_a_ini,phase_log_F_a_ini)
 
  //init_3darray log_F_a_ini(first_VPA,nsp,cfa,las,0,no_F_y_groups,phase_log_F_a_ini)
@@ -3543,17 +3548,14 @@ PARAMETER_SECTION
  //!! cout<<"catch_s2_used:"<<endl;
  //!! for (s=first_VPA;s<=nsp;s++) cout<<"Species:"<<s<<endl<<catch_s2_used(s)<<endl;
  
- !! if (test_output==1) cout<<"catch.s2.group: "<<endl<<catch_s2_group<<endl;
- 
+ // !! if (test_output==1) cout<<"catch.s2.group:: "<<endl<<catch_s2_group<<endl;
  
  init_bounded_vector catch_s2_ini(1,n_catch_s2_used,xx,2.0,phase_log_F_a_ini)
  !! if (phase_log_F_a_ini>0 && i>0)  for (s=first_VPA;s<=nsp;s++)  for (j=1;j<=seasonal_combined_catch_s2(s);j++) for (k=1;k<=n_catch_s2_group(s);k++) if (catch_s2_used(s,j,k)>0) {
  !!       parNo++; parexp<<"catch_s2_ini "<<parNo<<" "<<s<<" -1 "<< j <<" -1 "<< catch_s2_group(s,k)<<" -1 -1 -1 "<<s<<" "<<j<<" "<<k<<" used"<<endl;;
  !! }
 
-
-
- // variance in  SSB-recruit relation 
+  // variance in  SSB-recruit relation
  vector SSB_R_s2(first_VPA,nsp)
  !! if (est_calc_sigma(3)==0) i=nsp; else i=-1; 
 
@@ -3838,10 +3840,10 @@ PARAMETER_SECTION
  !!      phase_Stom_var3(n_diri_used) =  phase_Stom_var2(p);
  !!   }
  !! }
- //!! cout<<"ÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆ"<<endl<<" trans_diri: "<<endl<<trans_diri<<endl<<"n_diri_used: "<<n_diri_used<<endl;;
+ //!! cout<<"&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&"<<endl<<" trans_diri: "<<endl<<trans_diri<<endl<<"n_diri_used: "<<n_diri_used<<endl;;
 
  init_bounded_number_vector Stom_var(1,n_diri_used,Stom_var_l2,Stom_var_u2,phase_Stom_var3);
- !! if (multi>0) for (p=1;p<=n;p++) if (phase_Stom_var2(n)>0){
+ !! if (multi>0) for (p=1;p<=n;p++) if (phase_Stom_var2(n)>0 & (diri_alpha0(p)==0  || diri_alpha0(p)==2 )) {
  !!      parNo++; parexp<<"Stom_var "<<parNo<<" -1 -1 -1 -1 -1 "<<p<<" -1  -1 "<<p<<" -1 -1"<<" used"<<endl; 
  !!  }
   
@@ -3854,7 +3856,7 @@ PARAMETER_SECTION
  !! if (multi>0) {
  !!  i=1; 
  !!  j=0;
- !!  for (p=1;p<=no_other_pred_noise;p++) {       
+ !!  if (phase_other_pred_noise_fac>0) for (p=1;p<=no_other_pred_noise;p++) {
  !!    s=other_pred_noise_sp(p);
  !!    if (s != j) {j=s; a=fa_other(s)-1; }
  !!    if (j==s) a=a+1; 
@@ -3871,7 +3873,7 @@ PARAMETER_SECTION
  !! if (multi>0 && k>0) {
  !!  i=1; 
  !!  j=0;
- !!  for (p=1;p<=no_other_pred_noise;p++) {       
+ !!  if (phase_other_pred_noise_fac>0) for (p=1;p<=no_other_pred_noise;p++) {
  !!    s=other_pred_noise_sp(p);
  !!    if (s != j) {j=s; a=fa_other(s)-1; }
  !!    if (j==s) a=a+1; 
@@ -3909,6 +3911,7 @@ PARAMETER_SECTION
  !!   parNo++; parexp<<"init_s1 "<<parNo<<" -1 -1 -1 "<<p<<" -1 -1  -1  -1 "<<parNo<<" -1 -1"<<" used"<<endl; 
  !! }
 
+ 
  /////////////////////////////////////////////////////////////////////////////////////////// 
  // optional sdreport  variables ///////////////////////////////////////////////////////////
  
@@ -3992,6 +3995,17 @@ PARAMETER_SECTION
  //!! for (s=first_VPA;s<=nsp;s++)  for (int i=1;i<=no_F_multipliers;i++) {parNo++;  parexp<<"log_short_term_SSB "<<parNo<<" "<<s<<" "<<y<<" "<<fq<<" "<<i<<" -1 -1 -1 -1 "<<s<<" "<<i<<" -1"<<" used"<<endl; }
  !! log_short_term_SSB=0;
  
+
+
+ // matrix her_M2(0,8,lyModel-sdReportYear,lyModel)
+ // sdreport_matrix her_M2(0,8,lyModel-sdReportYear,lyModel)
+ //!! s=21; for (a=fa;a<=la(s);a++) for(y=lyModel-sdReportYear;y<=lyModel;y++) {parNo++;  parexp<<"her_M2 "<<parNo<<" "<<s<<" "<<y<<" -1 -1 "<<a<<" -1 -1 -1 "<<s<<" "<<y<<" -1"<<" used"<<endl; }
+
+ //sdreport_vector her_avgM2(0,8)
+ // !! s=21; for (a=fa;a<=la(s);a++) {parNo++;  parexp<<"her_avgM2 "<<parNo<<" "<<s<<" "<<-9<<" -1 -1 "<<a<<" -1 -1 -1 "<<s<<" "<<-9<<" -1"<<" used"<<endl; }
+
+
+ 
  // likeprof_number SSB_likeprof;
  // !! parNo++; parexp<<"SSB_likeprof "<<parNo<<" "<<first_VPA<<" "<<lyModel+2<<" "<<fq<<" "<< -1<<" -1 -1 -1 -1  -1 -1 -1"<<" used"<<endl;
  // !! SSB_likeprof=0;
@@ -4031,8 +4045,9 @@ PARAMETER_SECTION
  objective_function_value obf
  
  !! if (test_output>=1) cout << "PARAMETER SECTION ended"<<endl;
- // €€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€
- // €€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€
+ 
+ //  ###################################################################################################################################
+ //  ###################################################################################################################################
 
 PRELIMINARY_CALCS_SECTION
 
@@ -5070,10 +5085,10 @@ PRELIMINARY_CALCS_SECTION
   //max_last_VPA=20;   // used for testing; selects sub-set of species
 
 
- // €€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€
- // €€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€
-
-  
+ //  #######################################################################################
+ //  #######################################################################################
+ 
+ 
 PROCEDURE_SECTION 
 
  //cout <<"PROCEDURE_SECTION initiated"<<endl;
@@ -6464,7 +6479,7 @@ FUNCTION evaluate_catch_contributions
       //if (s==28) cout<<"sumx2: "<<sumx2<<"  sumx:"<<sumx<<endl;
       for (i=1;i<=seasonal_combined_catch_s2(s);i++) if (no(i)>0) {  
         if (est_catch_sigma ==1) {  // estimate sigma as a real parameter
-           //cout<<"species:"<<s<<"  seasonal_combined_catch_s2 (i): "<<i<< " sumx2(i): " <<sumx2(i)<<endl;
+           //cout<<"species::::"<<s<<"  seasonal_combined_catch_s2 (i): "<<i<< " sumx2(i): " <<sumx2(i)<<endl;
            //if (catch_s2_used(s,i,s2_group)==0) {cout<<"Something is wrong with catch_s2: program stopped"<<endl; exit(9);}
            catch_s2(s,i,s2_group)=catch_s2_ini(int(catch_s2_used(s,i,s2_group)));
            sum=no(i)*log(sqrt(catch_s2(s,i,s2_group)))+sumx2(i)*0.5/catch_s2(s,i,s2_group);
@@ -7018,6 +7033,25 @@ FUNCTION move_M2_to_sdreport
        M2_sd2(i,y)=tmp;
       }
     }
+    
+    // herring
+   // s=21;
+   // her_avgM2=0;
+   // for (y=lyModel-sdReportYear;y<=lyModel;y++){
+   //  for (a=fa;a<=la(s);a++) {
+    //   tmp=0.0;
+    //   for (q=fq;q<=lq;q++){
+    //     if (!(a==fa & q<recq)) {
+    //      CALC_yq
+    //      tmp+=M2(yq,s,a);
+    //     }
+    //   }
+   //    her_M2(a,y)=tmp;
+    //   her_avgM2(a)= her_avgM2(a)+tmp;
+    //  }
+    // }
+    // for (a=fa;a<=la(s);a++) her_avgM2(a)=her_avgM2(a) / sdReportYear;
+
  //********************************************************************************************* 
  
 FUNCTION move_recruitment_to_sdreport
@@ -12635,18 +12669,15 @@ REPORT_SECTION
   
   if (test_output>=1) cout <<"REPORT SECTION completed"<<endl;
  
-
- // €€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€
- // €€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€
-
+ //  ###################################################################################################################################
+ //  ###################################################################################################################################
 RUNTIME_SECTION
   maximum_function_evaluations 4000 
 
  //convergence_criteria  1E-1 1e-5;
-
- // €€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€
- // €€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€
-
+ //  ###################################################################################################################################
+ //  ###################################################################################################################################
+ 
 TOP_OF_MAIN_SECTION 
   
  arrmblsize=3000000;
@@ -12656,9 +12687,9 @@ TOP_OF_MAIN_SECTION
  gradient_structure::set_NUM_DEPENDENT_VARIABLES(3000);
 
  time(&startTime);
- // €€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€
- // €€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€
-
+ 
+ //  ###################################################################################################################################
+ //  ###################################################################################################################################
 FINAL_SECTION
 
  
